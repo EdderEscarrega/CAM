@@ -4,58 +4,186 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDDCAMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BDDCAM.dbo.alergias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="alergias">
-          <Key>
-            <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="alergia" />
-          </Key>
-          <Property Name="id_cartilla_medica" Type="int" Nullable="false" />
-          <Property Name="alergia" Type="varchar" MaxLength="30" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="BDCAMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="alumno">
           <Key>
             <PropertyRef Name="id_alumno" />
           </Key>
           <Property Name="id_alumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fecha_registro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
           <Property Name="ciclo_escolar" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="apellido_paterno" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido_materno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
-          <Property Name="años_alumno" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="edad_alumno" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="CURP_alumno" Type="varchar" MaxLength="18" Nullable="false" />
           <Property Name="estado_nacimiento_alumno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="ciudad_nacimiento_alumno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="colonia_alumno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="calle_alumno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="numero_alumno" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="telefono_personal_alumno" Type="varchar" MaxLength="30" />
+          <Property Name="telefono_personal_alumno" Type="varchar" MaxLength="10" />
           <Property Name="escuela_procedencia_alumno" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="documentacion_alumno" Type="nvarchar(max)" />
           <Property Name="atendido_por" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tipo_ingreso" Type="varchar" MaxLength="40" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BDDCAM.dbo.discapacidades' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="discapacidades">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.alumno-cartilla' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="alumno-cartilla">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+            <PropertyRef Name="id_cartilla" />
+          </Key>
+          <Property Name="id_alumno" Type="int" Nullable="false" />
+          <Property Name="id_cartilla" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.alumno-programa' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="alumno-programa">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+            <PropertyRef Name="id_programa" />
+          </Key>
+          <Property Name="id_alumno" Type="int" Nullable="false" />
+          <Property Name="id_programa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="catalogo_alergia">
+          <Key>
+            <PropertyRef Name="id_alergias" />
+          </Key>
+          <Property Name="id_alergias" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alergia" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="catalogo_discapacidades">
+          <Key>
+            <PropertyRef Name="id_discapacidades" />
+          </Key>
+          <Property Name="id_discapacidades" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="discapacidades" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="catalogo_enfermedades">
+          <Key>
+            <PropertyRef Name="id_enfermedades" />
+          </Key>
+          <Property Name="id_enfermedades" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enfermedades" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.foto-alumno' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="foto-alumno">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+            <PropertyRef Name="imagen_alumno" />
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="id_alumno" Type="int" Nullable="false" />
+          <Property Name="imagen_alumno" Type="image" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.medica-alergia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="medica-alergia">
+          <Key>
+            <PropertyRef Name="id_cartilla" />
+            <PropertyRef Name="id_alergia" />
+          </Key>
+          <Property Name="id_cartilla" Type="int" Nullable="false" />
+          <Property Name="id_alergia" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.medica-discapacidad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="medica-discapacidad">
+          <Key>
+            <PropertyRef Name="id_discapacidad" />
+            <PropertyRef Name="id_cartillamedica" />
+          </Key>
+          <Property Name="id_discapacidad" Type="int" Nullable="false" />
+          <Property Name="id_cartillamedica" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.medica-enfermedades' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="medica-enfermedades">
           <Key>
             <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="discapacidades" />
+            <PropertyRef Name="id_enfermedades" />
           </Key>
           <Property Name="id_cartilla_medica" Type="int" Nullable="false" />
-          <Property Name="discapacidades" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_enfermedades" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BDDCAM.dbo.enfermedades' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="enfermedades">
+        <EntityType Name="permisos">
           <Key>
-            <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="enfermedad" />
+            <PropertyRef Name="id_permisos" />
           </Key>
-          <Property Name="id_cartilla_medica" Type="int" Nullable="false" />
-          <Property Name="enfermedad" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_permisos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="permisos" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="programa">
+          <Key>
+            <PropertyRef Name="id_programa" />
+          </Key>
+          <Property Name="id_programa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_programa" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tiempo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="secuencia" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="criterios" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="objetivo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="modulos" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="proyecto" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.programa-turno' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="programa-turno">
+          <Key>
+            <PropertyRef Name="id_turno" />
+            <PropertyRef Name="id_programa" />
+          </Key>
+          <Property Name="id_turno" Type="int" Nullable="false" />
+          <Property Name="id_programa" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.recurso-programa' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="recurso-programa">
+          <Key>
+            <PropertyRef Name="id_recurso" />
+            <PropertyRef Name="id_programa" />
+          </Key>
+          <Property Name="id_recurso" Type="int" Nullable="false" />
+          <Property Name="id_programa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="recursos">
+          <Key>
+            <PropertyRef Name="id_recurso" />
+          </Key>
+          <Property Name="id_recurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recurso" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.rol-tiene-permiso' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="rol-tiene-permiso">
+          <Key>
+            <PropertyRef Name="id_rol" />
+            <PropertyRef Name="id_permiso" />
+            <PropertyRef Name="id_subpermiso" />
+          </Key>
+          <Property Name="id_rol" Type="int" Nullable="false" />
+          <Property Name="id_permiso" Type="int" Nullable="false" />
+          <Property Name="id_subpermiso" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subpermisos">
+          <Key>
+            <PropertyRef Name="id_subpermisos" />
+          </Key>
+          <Property Name="id_subpermisos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subpermisos" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -78,14 +206,17 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.enfermedades' no tiene definida n
           <Key>
             <PropertyRef Name="id_cartilla_medica" />
           </Key>
-          <Property Name="id_alumno" Type="int" Nullable="false" />
           <Property Name="id_cartilla_medica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="servicio_medico" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="grupo_sanguineo" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="telefono_contacto" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="peso" Type="varchar" MaxLength="50" />
+          <Property Name="genero" Type="varchar" MaxLength="50" />
+          <Property Name="color_textura_piel" Type="varchar" MaxLength="50" />
+          <Property Name="estatura" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BDDCAM.dbo.telefono-tutores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.telefono-tutores' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="telefono-tutores">
           <Key>
             <PropertyRef Name="id_tutor" />
@@ -95,6 +226,25 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.telefono-tutores' no tiene defini
           <Property Name="id_tutor" Type="int" Nullable="false" />
           <Property Name="id_telefono" Type="int" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.Tratamientos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tratamientos">
+          <Key>
+            <PropertyRef Name="id_tratamiento" />
+            <PropertyRef Name="id_cartilla_medica" />
+            <PropertyRef Name="Tratamiento" />
+          </Key>
+          <Property Name="id_tratamiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cartilla_medica" Type="int" Nullable="false" />
+          <Property Name="Tratamiento" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="turnos">
+          <Key>
+            <PropertyRef Name="id_turno" />
+          </Key>
+          <Property Name="id_turno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="turno" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tutor">
           <Key>
@@ -112,18 +262,90 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.telefono-tutores' no tiene defini
           <Property Name="calle_trabajo_tutor" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="numero_trabajo_tutor" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.tutor-alumno' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tutor-alumno">
           <Key>
-            <PropertyRef Name="id_alumno" />
             <PropertyRef Name="id_tutor" />
+            <PropertyRef Name="id_alumno" />
           </Key>
-          <Property Name="id_alumno" Type="int" Nullable="false" />
           <Property Name="id_tutor" Type="int" Nullable="false" />
+          <Property Name="id_alumno" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_alumno">
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BDCAM.dbo.usuario-tiene-rol' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="usuario-tiene-rol">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="id_roles" />
+          </Key>
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="id_roles" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_alergia">
+          <End Role="catalogo_alergia" Type="Self.catalogo_alergia" Multiplicity="1" />
+          <End Role="medica-alergia" Type="Self.medica-alergia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_alergia">
+              <PropertyRef Name="id_alergias" />
+            </Principal>
+            <Dependent Role="medica-alergia">
+              <PropertyRef Name="id_alergia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_alumno-cartilla">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="alumno-cartilla" Type="Self.alumno-cartilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="alumno-cartilla">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_alumno-foto">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="foto-alumno" Type="Self.foto-alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="foto-alumno">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_alumno-programa">
           <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
+          <End Role="alumno-programa" Type="Self.alumno-programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="alumno-programa">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alumno-tutor">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tutor-alumno" Type="Self.tutor-alumno" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="alumno">
@@ -134,56 +356,164 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_id">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="discapacidades" Type="Self.discapacidades" Multiplicity="*" />
+        <Association Name="FK_cartilla">
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="medica-enfermedades" Type="Self.medica-enfermedades" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabla_medica">
               <PropertyRef Name="id_cartilla_medica" />
             </Principal>
-            <Dependent Role="discapacidades">
+            <Dependent Role="medica-enfermedades">
               <PropertyRef Name="id_cartilla_medica" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_idalumno">
-          <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="alumno">
-              <PropertyRef Name="id_alumno" />
-            </Principal>
-            <Dependent Role="tabla_medica">
-              <PropertyRef Name="id_alumno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idcartilla">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="enfermedades" Type="Self.enfermedades" Multiplicity="*" />
+        <Association Name="FK_cartilla-alumno">
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="alumno-cartilla" Type="Self.alumno-cartilla" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabla_medica">
               <PropertyRef Name="id_cartilla_medica" />
             </Principal>
-            <Dependent Role="enfermedades">
-              <PropertyRef Name="id_cartilla_medica" />
+            <Dependent Role="alumno-cartilla">
+              <PropertyRef Name="id_cartilla" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_idcartillamedica">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="alergias" Type="Self.alergias" Multiplicity="*" />
+        <Association Name="FK_cm">
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="medica-discapacidad" Type="Self.medica-discapacidad" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabla_medica">
               <PropertyRef Name="id_cartilla_medica" />
             </Principal>
-            <Dependent Role="alergias">
+            <Dependent Role="medica-discapacidad">
+              <PropertyRef Name="id_cartillamedica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_disc">
+          <End Role="catalogo_discapacidades" Type="Self.catalogo_discapacidades" Multiplicity="1" />
+          <End Role="medica-discapacidad" Type="Self.medica-discapacidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_discapacidades">
+              <PropertyRef Name="id_discapacidades" />
+            </Principal>
+            <Dependent Role="medica-discapacidad">
+              <PropertyRef Name="id_discapacidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enfermedades">
+          <End Role="catalogo_enfermedades" Type="Self.catalogo_enfermedades" Multiplicity="1" />
+          <End Role="medica-enfermedades" Type="Self.medica-enfermedades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catalogo_enfermedades">
+              <PropertyRef Name="id_enfermedades" />
+            </Principal>
+            <Dependent Role="medica-enfermedades">
+              <PropertyRef Name="id_enfermedades" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_id_cartilla">
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="medica-alergia" Type="Self.medica-alergia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabla_medica">
+              <PropertyRef Name="id_cartilla_medica" />
+            </Principal>
+            <Dependent Role="medica-alergia">
+              <PropertyRef Name="id_cartilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro">
+          <End Role="programa" Type="Self.programa" Multiplicity="1" />
+          <End Role="programa-turno" Type="Self.programa-turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programa">
+              <PropertyRef Name="id_programa" />
+            </Principal>
+            <Dependent Role="programa-turno">
+              <PropertyRef Name="id_programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_programa">
+          <End Role="programa" Type="Self.programa" Multiplicity="1" />
+          <End Role="recurso-programa" Type="Self.recurso-programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programa">
+              <PropertyRef Name="id_programa" />
+            </Principal>
+            <Dependent Role="recurso-programa">
+              <PropertyRef Name="id_programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_programa_turno">
+          <End Role="turnos" Type="Self.turnos" Multiplicity="1" />
+          <End Role="programa-turno" Type="Self.programa-turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="turnos">
+              <PropertyRef Name="id_turno" />
+            </Principal>
+            <Dependent Role="programa-turno">
+              <PropertyRef Name="id_turno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_programa-alumno">
+          <End Role="programa" Type="Self.programa" Multiplicity="1" />
+          <End Role="alumno-programa" Type="Self.alumno-programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programa">
+              <PropertyRef Name="id_programa" />
+            </Principal>
+            <Dependent Role="alumno-programa">
+              <PropertyRef Name="id_programa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recurso">
+          <End Role="recursos" Type="Self.recursos" Multiplicity="1" />
+          <End Role="recurso-programa" Type="Self.recurso-programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recursos">
+              <PropertyRef Name="id_recurso" />
+            </Principal>
+            <Dependent Role="recurso-programa">
+              <PropertyRef Name="id_recurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tabla_Medica_Tratamiento">
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tratamientos" Type="Self.Tratamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabla_medica">
+              <PropertyRef Name="id_cartilla_medica" />
+            </Principal>
+            <Dependent Role="Tratamientos">
               <PropertyRef Name="id_cartilla_medica" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tele">
-          <End Role="tabla_indicadores_telefono" Type="Self.tabla_indicadores_telefono" Multiplicity="1" />
+          <End Role="tabla_indicadores_telefono" Type="Self.tabla_indicadores_telefono" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="telefono-tutores" Type="Self.telefono-tutores" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabla_indicadores_telefono">
@@ -195,7 +525,9 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tuto">
-          <End Role="tutor" Type="Self.tutor" Multiplicity="1" />
+          <End Role="tutor" Type="Self.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="telefono-tutores" Type="Self.telefono-tutores" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tutor">
@@ -206,8 +538,10 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tutor">
-          <End Role="tutor" Type="Self.tutor" Multiplicity="1" />
+        <Association Name="FK_tutor_id">
+          <End Role="tutor" Type="Self.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tutor-alumno" Type="Self.tutor-alumno" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tutor">
@@ -218,29 +552,362 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BDDCAMModelStoreContainer">
+        <Association Name="permiso">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
+          <End Role="rol-tiene-permiso" Type="Self.rol-tiene-permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="id_permisos" />
+            </Principal>
+            <Dependent Role="rol-tiene-permiso">
+              <PropertyRef Name="id_permiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rol-permiso">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="rol-tiene-permiso" Type="Self.rol-tiene-permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="rol-tiene-permiso">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rol-usuario">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="usuario-tiene-rol" Type="Self.usuario-tiene-rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="usuario-tiene-rol">
+              <PropertyRef Name="id_roles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="subpermiso">
+          <End Role="subpermisos" Type="Self.subpermisos" Multiplicity="1" />
+          <End Role="rol-tiene-permiso" Type="Self.rol-tiene-permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subpermisos">
+              <PropertyRef Name="id_subpermisos" />
+            </Principal>
+            <Dependent Role="rol-tiene-permiso">
+              <PropertyRef Name="id_subpermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario-rol">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="usuario-tiene-rol" Type="Self.usuario-tiene-rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="usuario-tiene-rol">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="Modificar_discapacidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iddiscapacidad" Type="int" Mode="In" />
+          <Parameter Name="discapacidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Modificar_enfermedades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idenfermedad" Type="int" Mode="In" />
+          <Parameter Name="enfermedad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Modificar_tratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Cartilla" Type="int" Mode="In" />
+          <Parameter Name="tratamiento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_altaalergias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="id_alergia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_AltaAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fecha_registro" Type="date" Mode="In" />
+          <Parameter Name="cicloescolar" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_pat" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_mat" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_nac" Type="date" Mode="In" />
+          <Parameter Name="edad_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="curp" Type="varchar" Mode="In" />
+          <Parameter Name="estadonac" Type="varchar" Mode="In" />
+          <Parameter Name="ciudadnac" Type="varchar" Mode="In" />
+          <Parameter Name="colonia" Type="varchar" Mode="In" />
+          <Parameter Name="calle" Type="varchar" Mode="In" />
+          <Parameter Name="numero_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="telefonoper" Type="varchar" Mode="In" />
+          <Parameter Name="escuela" Type="varchar" Mode="In" />
+          <Parameter Name="documentacion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="tipo_ingreso" Type="varchar" Mode="In" />
+          <Parameter Name="atendidopor" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_altaalumnocartilla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_al" Type="int" Mode="In" />
+          <Parameter Name="id_car" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_altacartilla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="servicio" Type="varchar" Mode="In" />
+          <Parameter Name="grupo" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="peso" Type="varchar" Mode="In" />
+          <Parameter Name="genero" Type="varchar" Mode="In" />
+          <Parameter Name="color_textura" Type="varchar" Mode="In" />
+          <Parameter Name="estatura" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_altadiscapacidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_car" Type="int" Mode="In" />
+          <Parameter Name="id_discapacidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_altaenfermedades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_car" Type="int" Mode="In" />
+          <Parameter Name="id_enfermedades" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_AltaImagenAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+          <Parameter Name="imagen_alumno" Type="image" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_AltaTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_car" Type="int" Mode="In" />
+          <Parameter Name="tratamiento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_altatutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellidopat" Type="varchar" Mode="In" />
+          <Parameter Name="apellidomat" Type="varchar" Mode="In" />
+          <Parameter Name="colonia" Type="varchar" Mode="In" />
+          <Parameter Name="calle" Type="varchar" Mode="In" />
+          <Parameter Name="numero" Type="varchar" Mode="In" />
+          <Parameter Name="ocupacion" Type="varchar" Mode="In" />
+          <Parameter Name="coloniatrabajo" Type="varchar" Mode="In" />
+          <Parameter Name="calletrabajo" Type="varchar" Mode="In" />
+          <Parameter Name="numerotrabajo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_catalogoalergias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_catalogodiscapacidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_catalogoenfermedades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_consulta_foto_alumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminacion_Alergia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_cartilla" Type="int" Mode="In" />
+          <Parameter Name="id_Alergia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminacion_Discapacidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_cartilla" Type="int" Mode="In" />
+          <Parameter Name="id_Discapacidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminacion_Enfermedad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_cartilla" Type="int" Mode="In" />
+          <Parameter Name="id_enfermedad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminacion_Tratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_cartilla" Type="int" Mode="In" />
+          <Parameter Name="id_Tratamiento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminar_Alumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_FichaTecnicaAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_FichaTecnicaAlumnoMedica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_FichaTecnicaAlumnoTutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Lista_Egresado_Filtro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Lista_Egresados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ListaAlergia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ListaAlumnos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ListaAlumnos1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ListaAlumnos2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ListaDiscapacidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ListaEnfermedad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ListaTelefonosTutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_tutor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ListaTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificacionAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+          <Parameter Name="cicloescolar" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_pat" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_mat" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_nac" Type="date" Mode="In" />
+          <Parameter Name="edad_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="curp" Type="varchar" Mode="In" />
+          <Parameter Name="estadonac" Type="varchar" Mode="In" />
+          <Parameter Name="ciudadnac" Type="varchar" Mode="In" />
+          <Parameter Name="colonia" Type="varchar" Mode="In" />
+          <Parameter Name="calle" Type="varchar" Mode="In" />
+          <Parameter Name="numero_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="telefonoper" Type="varchar" Mode="In" />
+          <Parameter Name="escuela" Type="varchar" Mode="In" />
+          <Parameter Name="documentacion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="atendidopor" Type="varchar" Mode="In" />
+          <Parameter Name="tipo_ingreso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificacionCartilla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idtabla" Type="int" Mode="In" />
+          <Parameter Name="Servicio" Type="varchar" Mode="In" />
+          <Parameter Name="Grupo_sanguineo" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_contacto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificacionTutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idtutor" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_paterno" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_materno" Type="varchar" Mode="In" />
+          <Parameter Name="calle" Type="varchar" Mode="In" />
+          <Parameter Name="colonia" Type="varchar" Mode="In" />
+          <Parameter Name="numero" Type="varchar" Mode="In" />
+          <Parameter Name="ocupacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Modificar_alergias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alergia" Type="int" Mode="In" />
+          <Parameter Name="alergia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_ModificarTelefonoTutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idtutor" Type="int" Mode="In" />
+          <Parameter Name="idtipotelefono" Type="int" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_MostrarFotoAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_regresarid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_regresaridcartilla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_regresaridtutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_telefonotutores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idtutor" Type="int" Mode="In" />
+          <Parameter Name="idtelefono" Type="int" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_tutoralumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+          <Parameter Name="id_tutor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BDCAMModelStoreContainer">
           <EntitySet Name="alumno" EntityType="Self.alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="catalogo_alergia" EntityType="Self.catalogo_alergia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="catalogo_discapacidades" EntityType="Self.catalogo_discapacidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="catalogo_enfermedades" EntityType="Self.catalogo_enfermedades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="permisos" EntityType="Self.permisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="programa" EntityType="Self.programa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="recursos" EntityType="Self.recursos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subpermisos" EntityType="Self.subpermisos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tabla_indicadores_telefono" EntityType="Self.tabla_indicadores_telefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tabla_medica" EntityType="Self.tabla_medica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="turnos" EntityType="Self.turnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tutor" EntityType="Self.tutor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="alergias" EntityType="Self.alergias" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alumno-cartilla" EntityType="Self.alumno-cartilla" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [alergias].[id_cartilla_medica] AS [id_cartilla_medica], 
-    [alergias].[alergia] AS [alergia]
-    FROM [dbo].[alergias] AS [alergias]</DefiningQuery>
+    [alumno-cartilla].[id_alumno] AS [id_alumno], 
+    [alumno-cartilla].[id_cartilla] AS [id_cartilla]
+    FROM [dbo].[alumno-cartilla] AS [alumno-cartilla]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="discapacidades" EntityType="Self.discapacidades" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="alumno-programa" EntityType="Self.alumno-programa" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [discapacidades].[id_cartilla_medica] AS [id_cartilla_medica], 
-    [discapacidades].[discapacidades] AS [discapacidades]
-    FROM [dbo].[discapacidades] AS [discapacidades]</DefiningQuery>
+    [alumno-programa].[id_alumno] AS [id_alumno], 
+    [alumno-programa].[id_programa] AS [id_programa]
+    FROM [dbo].[alumno-programa] AS [alumno-programa]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="enfermedades" EntityType="Self.enfermedades" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="foto-alumno" EntityType="Self.foto-alumno" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [enfermedades].[id_cartilla_medica] AS [id_cartilla_medica], 
-    [enfermedades].[enfermedad] AS [enfermedad]
-    FROM [dbo].[enfermedades] AS [enfermedades]</DefiningQuery>
+    [foto-alumno].[id_alumno] AS [id_alumno], 
+    [foto-alumno].[imagen_alumno] AS [imagen_alumno], 
+    [foto-alumno].[nombre] AS [nombre]
+    FROM [dbo].[foto-alumno] AS [foto-alumno]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="medica-alergia" EntityType="Self.medica-alergia" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [medica-alergia].[id_cartilla] AS [id_cartilla], 
+    [medica-alergia].[id_alergia] AS [id_alergia]
+    FROM [dbo].[medica-alergia] AS [medica-alergia]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="medica-discapacidad" EntityType="Self.medica-discapacidad" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [medica-discapacidad].[id_discapacidad] AS [id_discapacidad], 
+    [medica-discapacidad].[id_cartillamedica] AS [id_cartillamedica]
+    FROM [dbo].[medica-discapacidad] AS [medica-discapacidad]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="medica-enfermedades" EntityType="Self.medica-enfermedades" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [medica-enfermedades].[id_cartilla_medica] AS [id_cartilla_medica], 
+    [medica-enfermedades].[id_enfermedades] AS [id_enfermedades]
+    FROM [dbo].[medica-enfermedades] AS [medica-enfermedades]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="programa-turno" EntityType="Self.programa-turno" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [programa-turno].[id_turno] AS [id_turno], 
+    [programa-turno].[id_programa] AS [id_programa]
+    FROM [dbo].[programa-turno] AS [programa-turno]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="recurso-programa" EntityType="Self.recurso-programa" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [recurso-programa].[id_recurso] AS [id_recurso], 
+    [recurso-programa].[id_programa] AS [id_programa]
+    FROM [dbo].[recurso-programa] AS [recurso-programa]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="rol-tiene-permiso" EntityType="Self.rol-tiene-permiso" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [rol-tiene-permiso].[id_rol] AS [id_rol], 
+    [rol-tiene-permiso].[id_permiso] AS [id_permiso], 
+    [rol-tiene-permiso].[id_subpermiso] AS [id_subpermiso]
+    FROM [dbo].[rol-tiene-permiso] AS [rol-tiene-permiso]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="telefono-tutores" EntityType="Self.telefono-tutores" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -249,31 +916,92 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
     [telefono-tutores].[telefono] AS [telefono]
     FROM [dbo].[telefono-tutores] AS [telefono-tutores]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tratamientos].[id_tratamiento] AS [id_tratamiento], 
+    [Tratamientos].[id_cartilla_medica] AS [id_cartilla_medica], 
+    [Tratamientos].[Tratamiento] AS [Tratamiento]
+    FROM [dbo].[Tratamientos] AS [Tratamientos]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="tutor-alumno" EntityType="Self.tutor-alumno" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [tutor-alumno].[id_alumno] AS [id_alumno], 
-    [tutor-alumno].[id_tutor] AS [id_tutor]
+    [tutor-alumno].[id_tutor] AS [id_tutor], 
+    [tutor-alumno].[id_alumno] AS [id_alumno]
     FROM [dbo].[tutor-alumno] AS [tutor-alumno]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_alumno" Association="Self.FK_alumno">
+          <EntitySet Name="usuario-tiene-rol" EntityType="Self.usuario-tiene-rol" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [usuario-tiene-rol].[id_usuario] AS [id_usuario], 
+    [usuario-tiene-rol].[id_roles] AS [id_roles]
+    FROM [dbo].[usuario-tiene-rol] AS [usuario-tiene-rol]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_alergia" Association="Self.FK_alergia">
+            <End Role="catalogo_alergia" EntitySet="catalogo_alergia" />
+            <End Role="medica-alergia" EntitySet="medica-alergia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_alumno-cartilla" Association="Self.FK_alumno-cartilla">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="alumno-cartilla" EntitySet="alumno-cartilla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_alumno-foto" Association="Self.FK_alumno-foto">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="foto-alumno" EntitySet="foto-alumno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_alumno-programa" Association="Self.FK_alumno-programa">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="alumno-programa" EntitySet="alumno-programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alumno-tutor" Association="Self.FK_Alumno-tutor">
             <End Role="alumno" EntitySet="alumno" />
             <End Role="tutor-alumno" EntitySet="tutor-alumno" />
           </AssociationSet>
-          <AssociationSet Name="FK_id" Association="Self.FK_id">
+          <AssociationSet Name="FK_cartilla" Association="Self.FK_cartilla">
             <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="discapacidades" EntitySet="discapacidades" />
+            <End Role="medica-enfermedades" EntitySet="medica-enfermedades" />
           </AssociationSet>
-          <AssociationSet Name="FK_idalumno" Association="Self.FK_idalumno">
-            <End Role="alumno" EntitySet="alumno" />
+          <AssociationSet Name="FK_cartilla-alumno" Association="Self.FK_cartilla-alumno">
             <End Role="tabla_medica" EntitySet="tabla_medica" />
+            <End Role="alumno-cartilla" EntitySet="alumno-cartilla" />
           </AssociationSet>
-          <AssociationSet Name="FK_idcartilla" Association="Self.FK_idcartilla">
+          <AssociationSet Name="FK_cm" Association="Self.FK_cm">
             <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="enfermedades" EntitySet="enfermedades" />
+            <End Role="medica-discapacidad" EntitySet="medica-discapacidad" />
           </AssociationSet>
-          <AssociationSet Name="FK_idcartillamedica" Association="Self.FK_idcartillamedica">
+          <AssociationSet Name="FK_disc" Association="Self.FK_disc">
+            <End Role="catalogo_discapacidades" EntitySet="catalogo_discapacidades" />
+            <End Role="medica-discapacidad" EntitySet="medica-discapacidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enfermedades" Association="Self.FK_enfermedades">
+            <End Role="catalogo_enfermedades" EntitySet="catalogo_enfermedades" />
+            <End Role="medica-enfermedades" EntitySet="medica-enfermedades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_cartilla" Association="Self.FK_id_cartilla">
             <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="alergias" EntitySet="alergias" />
+            <End Role="medica-alergia" EntitySet="medica-alergia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro" Association="Self.FK_pro">
+            <End Role="programa" EntitySet="programa" />
+            <End Role="programa-turno" EntitySet="programa-turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_programa" Association="Self.FK_programa">
+            <End Role="programa" EntitySet="programa" />
+            <End Role="recurso-programa" EntitySet="recurso-programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_programa_turno" Association="Self.FK_programa_turno">
+            <End Role="turnos" EntitySet="turnos" />
+            <End Role="programa-turno" EntitySet="programa-turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_programa-alumno" Association="Self.FK_programa-alumno">
+            <End Role="programa" EntitySet="programa" />
+            <End Role="alumno-programa" EntitySet="alumno-programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recurso" Association="Self.FK_recurso">
+            <End Role="recursos" EntitySet="recursos" />
+            <End Role="recurso-programa" EntitySet="recurso-programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tabla_Medica_Tratamiento" Association="Self.FK_Tabla_Medica_Tratamiento">
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
           </AssociationSet>
           <AssociationSet Name="FK_Tele" Association="Self.FK_Tele">
             <End Role="tabla_indicadores_telefono" EntitySet="tabla_indicadores_telefono" />
@@ -283,49 +1011,86 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             <End Role="tutor" EntitySet="tutor" />
             <End Role="telefono-tutores" EntitySet="telefono-tutores" />
           </AssociationSet>
-          <AssociationSet Name="FK_tutor" Association="Self.FK_tutor">
+          <AssociationSet Name="FK_tutor_id" Association="Self.FK_tutor_id">
             <End Role="tutor" EntitySet="tutor" />
             <End Role="tutor-alumno" EntitySet="tutor-alumno" />
           </AssociationSet>
+          <AssociationSet Name="permiso" Association="Self.permiso">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rol-tiene-permiso" EntitySet="rol-tiene-permiso" />
+          </AssociationSet>
+          <AssociationSet Name="rol-permiso" Association="Self.rol-permiso">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="rol-tiene-permiso" EntitySet="rol-tiene-permiso" />
+          </AssociationSet>
+          <AssociationSet Name="rol-usuario" Association="Self.rol-usuario">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuario-tiene-rol" EntitySet="usuario-tiene-rol" />
+          </AssociationSet>
+          <AssociationSet Name="subpermiso" Association="Self.subpermiso">
+            <End Role="subpermisos" EntitySet="subpermisos" />
+            <End Role="rol-tiene-permiso" EntitySet="rol-tiene-permiso" />
+          </AssociationSet>
+          <AssociationSet Name="usuario-rol" Association="Self.usuario-rol">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuario-tiene-rol" EntitySet="usuario-tiene-rol" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BDDCAMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BDCAMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="alumno">
           <Key>
             <PropertyRef Name="id_alumno" />
           </Key>
           <Property Name="id_alumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fecha_registro" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ciclo_escolar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido_paterno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_materno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="años_alumno" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad_alumno" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CURP_alumno" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado_nacimiento_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ciudad_nacimiento_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="colonia_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="calle_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numero_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefono_personal_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono_personal_alumno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="escuela_procedencia_alumno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="documentacion_alumno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="atendido_por" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tabla_medica" Relationship="Self.FK_idalumno" FromRole="alumno" ToRole="tabla_medica" />
+          <NavigationProperty Name="tabla_medica" Relationship="Self.alumno_cartilla" FromRole="alumno" ToRole="tabla_medica" />
+          <NavigationProperty Name="programa" Relationship="Self.alumno_programa" FromRole="alumno" ToRole="programa" />
           <NavigationProperty Name="tutor" Relationship="Self.tutor_alumno" FromRole="alumno" ToRole="tutor" />
+          <NavigationProperty Name="foto_alumno" Relationship="BDCAMModel.FK_alumno_foto" FromRole="alumno" ToRole="foto_alumno" />
+          <Property Name="tipo_ingreso" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="programa">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="id_programa" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="id_programa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_programa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tiempo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secuencia" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="criterios" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="objetivo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modulos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="proyecto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="alumno" Relationship="Self.alumno_programa" FromRole="programa" ToRole="alumno" />
+          <NavigationProperty Name="turnos" Relationship="Self.programa_turno" FromRole="programa" ToRole="turnos" />
+          <NavigationProperty Name="recursos" Relationship="Self.recurso_programa" FromRole="programa" ToRole="recursos" />
+        </EntityType>
+        <EntityType Name="recursos">
+          <Key>
+            <PropertyRef Name="id_recurso" />
+          </Key>
+          <Property Name="id_recurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recurso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="programa" Relationship="Self.recurso_programa" FromRole="recursos" ToRole="programa" />
         </EntityType>
         <EntityType Name="tabla_indicadores_telefono">
           <Key>
@@ -339,15 +1104,27 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
           <Key>
             <PropertyRef Name="id_cartilla_medica" />
           </Key>
-          <Property Name="id_alumno" Type="Int32" Nullable="false" />
           <Property Name="id_cartilla_medica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="servicio_medico" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="grupo_sanguineo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono_contacto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="alumno" Relationship="Self.FK_idalumno" FromRole="tabla_medica" ToRole="alumno" />
-          <NavigationProperty Name="discapacidades" Relationship="Self.FK_id" FromRole="tabla_medica" ToRole="discapacidades" />
-          <NavigationProperty Name="enfermedades" Relationship="Self.FK_idcartilla" FromRole="tabla_medica" ToRole="enfermedades" />
-          <NavigationProperty Name="alergias" Relationship="Self.FK_idcartillamedica" FromRole="tabla_medica" ToRole="alergias" />
+          <Property Name="peso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="color_textura_piel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="alumno" Relationship="Self.alumno_cartilla" FromRole="tabla_medica" ToRole="alumno" />
+          <NavigationProperty Name="Tratamientos" Relationship="BDCAMModel.FK_Tabla_Medica_Tratamiento" FromRole="tabla_medica" ToRole="Tratamientos" />
+          <NavigationProperty Name="catalogo_alergia" Relationship="BDCAMModel.medica_alergia" FromRole="tabla_medica" ToRole="catalogo_alergia" />
+          <NavigationProperty Name="catalogo_discapacidades" Relationship="BDCAMModel.medica_discapacidad" FromRole="tabla_medica" ToRole="catalogo_discapacidades" />
+          <NavigationProperty Name="catalogo_enfermedades" Relationship="BDCAMModel.medica_enfermedades" FromRole="tabla_medica" ToRole="catalogo_enfermedades" />
+        </EntityType>
+        <EntityType Name="turnos">
+          <Key>
+            <PropertyRef Name="id_turno" />
+          </Key>
+          <Property Name="id_turno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="programa" Relationship="Self.programa_turno" FromRole="turnos" ToRole="programa" />
         </EntityType>
         <EntityType Name="tutor">
           <Key>
@@ -367,33 +1144,6 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
           <NavigationProperty Name="telefono_tutores" Relationship="Self.FK_Tuto" FromRole="tutor" ToRole="telefono_tutores" />
           <NavigationProperty Name="alumno" Relationship="Self.tutor_alumno" FromRole="tutor" ToRole="alumno" />
         </EntityType>
-        <EntityType Name="alergias">
-          <Key>
-            <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="alergia" />
-          </Key>
-          <Property Name="id_cartilla_medica" Type="Int32" Nullable="false" />
-          <Property Name="alergia" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tabla_medica" Relationship="Self.FK_idcartillamedica" FromRole="alergias" ToRole="tabla_medica" />
-        </EntityType>
-        <EntityType Name="discapacidades">
-          <Key>
-            <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="discapacidades1" />
-          </Key>
-          <Property Name="id_cartilla_medica" Type="Int32" Nullable="false" />
-          <Property Name="discapacidades1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tabla_medica" Relationship="Self.FK_id" FromRole="discapacidades" ToRole="tabla_medica" />
-        </EntityType>
-        <EntityType Name="enfermedades">
-          <Key>
-            <PropertyRef Name="id_cartilla_medica" />
-            <PropertyRef Name="enfermedad" />
-          </Key>
-          <Property Name="id_cartilla_medica" Type="Int32" Nullable="false" />
-          <Property Name="enfermedad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tabla_medica" Relationship="Self.FK_idcartilla" FromRole="enfermedades" ToRole="tabla_medica" />
-        </EntityType>
         <EntityType Name="telefono_tutores">
           <Key>
             <PropertyRef Name="id_tutor" />
@@ -406,18 +1156,6 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
           <NavigationProperty Name="tabla_indicadores_telefono" Relationship="Self.FK_Tele" FromRole="telefono_tutores" ToRole="tabla_indicadores_telefono" />
           <NavigationProperty Name="tutor" Relationship="Self.FK_Tuto" FromRole="telefono_tutores" ToRole="tutor" />
         </EntityType>
-        <Association Name="FK_idalumno">
-          <End Role="alumno" Type="Self.alumno" Multiplicity="1" />
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="alumno">
-              <PropertyRef Name="id_alumno" />
-            </Principal>
-            <Dependent Role="tabla_medica">
-              <PropertyRef Name="id_alumno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tele">
           <End Role="tabla_indicadores_telefono" Type="Self.tabla_indicadores_telefono" Multiplicity="1" />
           <End Role="telefono_tutores" Type="Self.telefono_tutores" Multiplicity="*" />
@@ -427,42 +1165,6 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </Principal>
             <Dependent Role="telefono_tutores">
               <PropertyRef Name="id_telefono" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_id">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="discapacidades" Type="Self.discapacidades" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tabla_medica">
-              <PropertyRef Name="id_cartilla_medica" />
-            </Principal>
-            <Dependent Role="discapacidades">
-              <PropertyRef Name="id_cartilla_medica" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idcartilla">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="enfermedades" Type="Self.enfermedades" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tabla_medica">
-              <PropertyRef Name="id_cartilla_medica" />
-            </Principal>
-            <Dependent Role="enfermedades">
-              <PropertyRef Name="id_cartilla_medica" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idcartillamedica">
-          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="1" />
-          <End Role="alergias" Type="Self.alergias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tabla_medica">
-              <PropertyRef Name="id_cartilla_medica" />
-            </Principal>
-            <Dependent Role="alergias">
-              <PropertyRef Name="id_cartilla_medica" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -478,65 +1180,696 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tutor_alumno">
+        <Association Name="alumno_cartilla">
           <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
-          <End Role="tutor" Type="Self.tutor" Multiplicity="*" />
+          <End Role="tabla_medica" Type="Self.tabla_medica" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BDDCAMEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="alumno_programa">
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+          <End Role="programa" Type="Self.programa" Multiplicity="*" />
+        </Association>
+        <Association Name="programa_turno">
+          <End Role="programa" Type="Self.programa" Multiplicity="*" />
+          <End Role="turnos" Type="Self.turnos" Multiplicity="*" />
+        </Association>
+        <Association Name="recurso_programa">
+          <End Role="programa" Type="Self.programa" Multiplicity="*" />
+          <End Role="recursos" Type="Self.recursos" Multiplicity="*" />
+        </Association>
+        <Association Name="tutor_alumno">
+          <End Role="tutor" Type="Self.tutor" Multiplicity="*" />
+          <End Role="alumno" Type="Self.alumno" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BDCAMEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="alumno" EntityType="Self.alumno" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="programa" EntityType="Self.programa" />
+          <EntitySet Name="recursos" EntityType="Self.recursos" />
           <EntitySet Name="tabla_indicadores_telefono" EntityType="Self.tabla_indicadores_telefono" />
           <EntitySet Name="tabla_medica" EntityType="Self.tabla_medica" />
+          <EntitySet Name="turnos" EntityType="Self.turnos" />
           <EntitySet Name="tutor" EntityType="Self.tutor" />
-          <EntitySet Name="alergias" EntityType="Self.alergias" />
-          <EntitySet Name="discapacidades" EntityType="Self.discapacidades" />
-          <EntitySet Name="enfermedades" EntityType="Self.enfermedades" />
           <EntitySet Name="telefono_tutores" EntityType="Self.telefono_tutores" />
-          <AssociationSet Name="FK_idalumno" Association="Self.FK_idalumno">
-            <End Role="alumno" EntitySet="alumno" />
-            <End Role="tabla_medica" EntitySet="tabla_medica" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tele" Association="Self.FK_Tele">
             <End Role="tabla_indicadores_telefono" EntitySet="tabla_indicadores_telefono" />
             <End Role="telefono_tutores" EntitySet="telefono_tutores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_id" Association="Self.FK_id">
-            <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="discapacidades" EntitySet="discapacidades" />
-          </AssociationSet>
-          <AssociationSet Name="FK_idcartilla" Association="Self.FK_idcartilla">
-            <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="enfermedades" EntitySet="enfermedades" />
-          </AssociationSet>
-          <AssociationSet Name="FK_idcartillamedica" Association="Self.FK_idcartillamedica">
-            <End Role="tabla_medica" EntitySet="tabla_medica" />
-            <End Role="alergias" EntitySet="alergias" />
           </AssociationSet>
           <AssociationSet Name="FK_Tuto" Association="Self.FK_Tuto">
             <End Role="tutor" EntitySet="tutor" />
             <End Role="telefono_tutores" EntitySet="telefono_tutores" />
           </AssociationSet>
-          <AssociationSet Name="tutor_alumno" Association="Self.tutor_alumno">
+          <AssociationSet Name="alumno_cartilla" Association="Self.alumno_cartilla">
             <End Role="alumno" EntitySet="alumno" />
-            <End Role="tutor" EntitySet="tutor" />
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
           </AssociationSet>
+          <AssociationSet Name="alumno_programa" Association="Self.alumno_programa">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="programa" EntitySet="programa" />
+          </AssociationSet>
+          <AssociationSet Name="programa_turno" Association="Self.programa_turno">
+            <End Role="programa" EntitySet="programa" />
+            <End Role="turnos" EntitySet="turnos" />
+          </AssociationSet>
+          <AssociationSet Name="recurso_programa" Association="Self.recurso_programa">
+            <End Role="programa" EntitySet="programa" />
+            <End Role="recursos" EntitySet="recursos" />
+          </AssociationSet>
+          <AssociationSet Name="tutor_alumno" Association="Self.tutor_alumno">
+            <End Role="tutor" EntitySet="tutor" />
+            <End Role="alumno" EntitySet="alumno" />
+          </AssociationSet>
+          <FunctionImport Name="sp_altaalergias">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="id_alergia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AltaAlumno" ReturnType="Collection(Decimal)">
+            <Parameter Name="fecha_registro" Mode="In" Type="DateTime" />
+            <Parameter Name="cicloescolar" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido_pat" Mode="In" Type="String" />
+            <Parameter Name="apellido_mat" Mode="In" Type="String" />
+            <Parameter Name="fecha_nac" Mode="In" Type="DateTime" />
+            <Parameter Name="edad_alumno" Mode="In" Type="String" />
+            <Parameter Name="curp" Mode="In" Type="String" />
+            <Parameter Name="estadonac" Mode="In" Type="String" />
+            <Parameter Name="ciudadnac" Mode="In" Type="String" />
+            <Parameter Name="colonia" Mode="In" Type="String" />
+            <Parameter Name="calle" Mode="In" Type="String" />
+            <Parameter Name="numero_alumno" Mode="In" Type="String" />
+            <Parameter Name="telefonoper" Mode="In" Type="String" />
+            <Parameter Name="escuela" Mode="In" Type="String" />
+            <Parameter Name="documentacion" Mode="In" Type="String" />
+            <Parameter Name="tipo_ingreso" Mode="In" Type="String" />
+            <Parameter Name="atendidopor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_altaalumnocartilla">
+            <Parameter Name="id_al" Mode="In" Type="Int32" />
+            <Parameter Name="id_car" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_altacartilla">
+            <Parameter Name="servicio" Mode="In" Type="String" />
+            <Parameter Name="grupo" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="peso" Mode="In" Type="String" />
+            <Parameter Name="genero" Mode="In" Type="String" />
+            <Parameter Name="color_textura" Mode="In" Type="String" />
+            <Parameter Name="estatura" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_altadiscapacidades">
+            <Parameter Name="id_car" Mode="In" Type="Int32" />
+            <Parameter Name="id_discapacidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_altaenfermedades">
+            <Parameter Name="id_car" Mode="In" Type="Int32" />
+            <Parameter Name="id_enfermedades" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_altatutor">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellidopat" Mode="In" Type="String" />
+            <Parameter Name="apellidomat" Mode="In" Type="String" />
+            <Parameter Name="colonia" Mode="In" Type="String" />
+            <Parameter Name="calle" Mode="In" Type="String" />
+            <Parameter Name="numero" Mode="In" Type="String" />
+            <Parameter Name="ocupacion" Mode="In" Type="String" />
+            <Parameter Name="coloniatrabajo" Mode="In" Type="String" />
+            <Parameter Name="calletrabajo" Mode="In" Type="String" />
+            <Parameter Name="numerotrabajo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FichaTecnicaAlumno" ReturnType="Collection(BDCAMModel.SP_FichaTecnicaAlumno_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FichaTecnicaAlumnoMedica" ReturnType="Collection(BDCAMModel.SP_FichaTecnicaAlumnoMedica_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FichaTecnicaAlumnoTutor" ReturnType="Collection(BDCAMModel.SP_FichaTecnicaAlumnoTutor_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BDCAMModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BDCAMModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ListaAlergia" ReturnType="Collection(BDCAMModel.SP_ListaAlergia_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ListaAlumnos" ReturnType="Collection(BDCAMModel.SP_ListaAlumnos_Result)" />
+          <FunctionImport Name="SP_ListaDiscapacidad" ReturnType="Collection(BDCAMModel.SP_ListaDiscapacidad_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ListaEnfermedad" ReturnType="Collection(BDCAMModel.SP_ListaEnfermedad_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_regresarid" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="sp_regresaridcartilla" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="sp_regresaridtutor" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_telefonotutores">
+            <Parameter Name="idtutor" Mode="In" Type="Int32" />
+            <Parameter Name="idtelefono" Mode="In" Type="Int32" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_tutoralumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="id_tutor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="permisos" EntityType="BDCAMModel.permisos" />
+          <EntitySet Name="roles" EntityType="BDCAMModel.roles" />
+          <EntitySet Name="subpermisos" EntityType="BDCAMModel.subpermisos" />
+          <EntitySet Name="usuario" EntityType="BDCAMModel.usuario" />
+          <EntitySet Name="rol_tiene_permiso" EntityType="BDCAMModel.rol_tiene_permiso" />
+          <AssociationSet Name="permiso" Association="BDCAMModel.permiso">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rol_tiene_permiso" EntitySet="rol_tiene_permiso" />
+          </AssociationSet>
+          <AssociationSet Name="rol_permiso" Association="BDCAMModel.rol_permiso">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="rol_tiene_permiso" EntitySet="rol_tiene_permiso" />
+          </AssociationSet>
+          <AssociationSet Name="subpermiso" Association="BDCAMModel.subpermiso">
+            <End Role="subpermisos" EntitySet="subpermisos" />
+            <End Role="rol_tiene_permiso" EntitySet="rol_tiene_permiso" />
+          </AssociationSet>
+          <AssociationSet Name="usuario_tiene_rol" Association="BDCAMModel.usuario_tiene_rol">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <EntitySet Name="foto_alumno" EntityType="BDCAMModel.foto_alumno" />
+          <AssociationSet Name="FK_alumno_foto" Association="BDCAMModel.FK_alumno_foto">
+            <End Role="alumno" EntitySet="alumno" />
+            <End Role="foto_alumno" EntitySet="foto_alumno" />
+          </AssociationSet>
+          <FunctionImport Name="SP_AltaImagenAlumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="imagen_alumno" Mode="In" Type="Binary" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ListaAlumnos1" ReturnType="Collection(BDCAMModel.SP_ListaAlumnos1_Result)" />
+          <FunctionImport Name="SP_ListaAlumnos2" ReturnType="Collection(BDCAMModel.SP_ListaAlumnos2_Result)" />
+          <EntitySet Name="Tratamientos" EntityType="BDCAMModel.Tratamientos" />
+          <AssociationSet Name="FK_Tabla_Medica_Tratamiento" Association="BDCAMModel.FK_Tabla_Medica_Tratamiento">
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
+          </AssociationSet>
+          <FunctionImport Name="SP_ListaTelefonosTutor" ReturnType="Collection(BDCAMModel.SP_ListaTelefonosTutor_Result)">
+          <Parameter Name="id_tutor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ListaTratamiento" ReturnType="Collection(BDCAMModel.SP_ListaTratamiento_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificacionAlumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="cicloescolar" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido_pat" Mode="In" Type="String" />
+            <Parameter Name="apellido_mat" Mode="In" Type="String" />
+            <Parameter Name="fecha_nac" Mode="In" Type="DateTime" />
+            <Parameter Name="edad_alumno" Mode="In" Type="String" />
+            <Parameter Name="curp" Mode="In" Type="String" />
+            <Parameter Name="estadonac" Mode="In" Type="String" />
+            <Parameter Name="ciudadnac" Mode="In" Type="String" />
+            <Parameter Name="colonia" Mode="In" Type="String" />
+            <Parameter Name="calle" Mode="In" Type="String" />
+            <Parameter Name="numero_alumno" Mode="In" Type="String" />
+            <Parameter Name="telefonoper" Mode="In" Type="String" />
+            <Parameter Name="escuela" Mode="In" Type="String" />
+            <Parameter Name="documentacion" Mode="In" Type="String" />
+            <Parameter Name="atendidopor" Mode="In" Type="String" />
+            <Parameter Name="tipo_ingreso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Modificar_discapacidades">
+            <Parameter Name="iddiscapacidad" Mode="In" Type="Int32" />
+            <Parameter Name="discapacidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Modificar_enfermedades">
+            <Parameter Name="idenfermedad" Mode="In" Type="Int32" />
+            <Parameter Name="enfermedad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Modificar_tratamiento">
+            <Parameter Name="Id_Cartilla" Mode="In" Type="Int32" />
+            <Parameter Name="tratamiento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_consulta_foto_alumno" ReturnType="Collection(BDCAMModel.SP_consulta_foto_alumno_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificacionCartilla">
+            <Parameter Name="idtabla" Mode="In" Type="Int32" />
+            <Parameter Name="Servicio" Mode="In" Type="String" />
+            <Parameter Name="Grupo_sanguineo" Mode="In" Type="String" />
+            <Parameter Name="telefono_contacto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificacionTutor">
+            <Parameter Name="idtutor" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido_paterno" Mode="In" Type="String" />
+            <Parameter Name="apellido_materno" Mode="In" Type="String" />
+            <Parameter Name="calle" Mode="In" Type="String" />
+            <Parameter Name="colonia" Mode="In" Type="String" />
+            <Parameter Name="numero" Mode="In" Type="String" />
+            <Parameter Name="ocupacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MostrarFotoAlumno" ReturnType="Collection(BDCAMModel.SP_MostrarFotoAlumno_Result)">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Modificar_alergias">
+            <Parameter Name="id_alergia" Mode="In" Type="Int32" />
+            <Parameter Name="alergia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AltaTratamientos">
+            <Parameter Name="id_car" Mode="In" Type="Int32" />
+            <Parameter Name="tratamiento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ModificarTelefonoTutor">
+            <Parameter Name="idtutor" Mode="In" Type="Int32" />
+            <Parameter Name="idtipotelefono" Mode="In" Type="Int32" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="catalogo_alergia" EntityType="BDCAMModel.catalogo_alergia" />
+          <EntitySet Name="catalogo_discapacidades" EntityType="BDCAMModel.catalogo_discapacidades" />
+          <EntitySet Name="catalogo_enfermedades" EntityType="BDCAMModel.catalogo_enfermedades" />
+          <AssociationSet Name="medica_alergia" Association="BDCAMModel.medica_alergia">
+            <End Role="catalogo_alergia" EntitySet="catalogo_alergia" />
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
+          </AssociationSet>
+          <AssociationSet Name="medica_discapacidad" Association="BDCAMModel.medica_discapacidad">
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
+            <End Role="catalogo_discapacidades" EntitySet="catalogo_discapacidades" />
+          </AssociationSet>
+          <AssociationSet Name="medica_enfermedades" Association="BDCAMModel.medica_enfermedades">
+            <End Role="tabla_medica" EntitySet="tabla_medica" />
+            <End Role="catalogo_enfermedades" EntitySet="catalogo_enfermedades" />
+          </AssociationSet>
+          <FunctionImport Name="sp_catalogoalergias" ReturnType="Collection(BDCAMModel.sp_catalogoalergias_Result)" />
+          <FunctionImport Name="sp_catalogodiscapacidades" ReturnType="Collection(BDCAMModel.sp_catalogodiscapacidades_Result)" />
+          <FunctionImport Name="sp_catalogoenfermedades" ReturnType="Collection(BDCAMModel.sp_catalogoenfermedades_Result)" />
+          <EntitySet Name="sysdiagrams" EntityType="BDCAMModel.sysdiagrams" />
+          <FunctionImport Name="sp_alterdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition1" ReturnType="Collection(BDCAMModel.sp_helpdiagramdefinition1_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams1" ReturnType="Collection(BDCAMModel.sp_helpdiagrams1_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams1" />
+          <FunctionImport Name="SP_Eliminar_Alumno">
+          <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Eliminacion_Alergia">
+            <Parameter Name="id_cartilla" Mode="In" Type="Int32" />
+            <Parameter Name="id_Alergia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Eliminacion_Discapacidad">
+            <Parameter Name="id_cartilla" Mode="In" Type="Int32" />
+            <Parameter Name="id_Discapacidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Eliminacion_Enfermedad">
+            <Parameter Name="id_cartilla" Mode="In" Type="Int32" />
+            <Parameter Name="id_enfermedad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Eliminacion_Tratamiento">
+            <Parameter Name="id_cartilla" Mode="In" Type="Int32" />
+            <Parameter Name="id_Tratamiento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Lista_Egresados" ReturnType="Collection(BDCAMModel.SP_Lista_Egresados_Result)" />
+          <FunctionImport Name="SP_Lista_Egresado_Filtro" ReturnType="Collection(BDCAMModel.SP_Lista_Egresado_Filtro_Result)">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SP_FichaTecnicaAlumno_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="DateTime" Name="fecha_nacimiento" Nullable="false" />
+          <Property Type="String" Name="ciudad_nacimiento_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="colonia_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="calle_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_personal_alumno" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="escuela_procedencia_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="edad_alumno" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="estado_nacimiento_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="CURP_alumno" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="atendido_por" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="ciclo_escolar" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="numero_alumno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="tipo_ingreso" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="documentacion_alumno" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_FichaTecnicaAlumnoMedica_Result">
+          <Property Type="String" Name="grupo_sanguineo" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="servicio_medico" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="id_cartilla_medica" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_FichaTecnicaAlumnoTutor_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="calle_tutor" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="colonia_tutor" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="numero_tutor" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="ocupacion_tutor" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="id_tutor" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaAlergia_Result">
+          <Property Type="String" Name="alergia" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="id_alergias" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaAlumnos_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaDiscapacidad_Result">
+          <Property Type="String" Name="discapacidades" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="id_discapacidades" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaEnfermedad_Result">
+          <Property Type="Int32" Name="id_enfermedades" Nullable="false" />
+          <Property Type="String" Name="enfermedades" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="permisos">
+          <Key>
+            <PropertyRef Name="id_permisos" />
+          </Key>
+          <Property Name="id_permisos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="permisos1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rol_tiene_permiso" Relationship="BDCAMModel.permiso" FromRole="permisos" ToRole="rol_tiene_permiso" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rol_tiene_permiso" Relationship="BDCAMModel.rol_permiso" FromRole="roles" ToRole="rol_tiene_permiso" />
+          <NavigationProperty Name="usuario" Relationship="BDCAMModel.usuario_tiene_rol" FromRole="roles" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="subpermisos">
+          <Key>
+            <PropertyRef Name="id_subpermisos" />
+          </Key>
+          <Property Name="id_subpermisos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subpermisos1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rol_tiene_permiso" Relationship="BDCAMModel.subpermiso" FromRole="subpermisos" ToRole="rol_tiene_permiso" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="roles" Relationship="BDCAMModel.usuario_tiene_rol" FromRole="usuario" ToRole="roles" />
+        </EntityType>
+        <EntityType Name="rol_tiene_permiso">
+          <Key>
+            <PropertyRef Name="id_rol" />
+            <PropertyRef Name="id_permiso" />
+            <PropertyRef Name="id_subpermiso" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" />
+          <Property Name="id_permiso" Type="Int32" Nullable="false" />
+          <Property Name="id_subpermiso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="permisos" Relationship="BDCAMModel.permiso" FromRole="rol_tiene_permiso" ToRole="permisos" />
+          <NavigationProperty Name="roles" Relationship="BDCAMModel.rol_permiso" FromRole="rol_tiene_permiso" ToRole="roles" />
+          <NavigationProperty Name="subpermisos" Relationship="BDCAMModel.subpermiso" FromRole="rol_tiene_permiso" ToRole="subpermisos" />
+        </EntityType>
+        <Association Name="permiso">
+          <End Type="BDCAMModel.permisos" Role="permisos" Multiplicity="1" />
+          <End Type="BDCAMModel.rol_tiene_permiso" Role="rol_tiene_permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="id_permisos" />
+            </Principal>
+            <Dependent Role="rol_tiene_permiso">
+              <PropertyRef Name="id_permiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rol_permiso">
+          <End Type="BDCAMModel.roles" Role="roles" Multiplicity="1" />
+          <End Type="BDCAMModel.rol_tiene_permiso" Role="rol_tiene_permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="rol_tiene_permiso">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="subpermiso">
+          <End Type="BDCAMModel.subpermisos" Role="subpermisos" Multiplicity="1" />
+          <End Type="BDCAMModel.rol_tiene_permiso" Role="rol_tiene_permiso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subpermisos">
+              <PropertyRef Name="id_subpermisos" />
+            </Principal>
+            <Dependent Role="rol_tiene_permiso">
+              <PropertyRef Name="id_subpermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuario_tiene_rol">
+          <End Type="BDCAMModel.roles" Role="roles" Multiplicity="*" />
+          <End Type="BDCAMModel.usuario" Role="usuario" Multiplicity="*" />
+        </Association>
+        <EntityType Name="foto_alumno">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+            <PropertyRef Name="imagen_alumno" />
+            <PropertyRef Name="nombre" />
+          </Key>
+          <Property Name="id_alumno" Type="Int32" Nullable="false" />
+          <Property Name="imagen_alumno" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="alumno" Relationship="BDCAMModel.FK_alumno_foto" FromRole="foto_alumno" ToRole="alumno" />
+        </EntityType>
+        <Association Name="FK_alumno_foto">
+          <End Type="BDCAMModel.alumno" Role="alumno" Multiplicity="1" />
+          <End Type="BDCAMModel.foto_alumno" Role="foto_alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="foto_alumno">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SP_ListaAlumnos1_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaAlumnos2_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="Tratamientos">
+          <Key>
+            <PropertyRef Name="id_tratamiento" />
+            <PropertyRef Name="id_cartilla_medica" />
+            <PropertyRef Name="Tratamiento" />
+          </Key>
+          <Property Name="id_tratamiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cartilla_medica" Type="Int32" Nullable="false" />
+          <Property Name="Tratamiento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tabla_medica" Relationship="BDCAMModel.FK_Tabla_Medica_Tratamiento" FromRole="Tratamientos" ToRole="tabla_medica" />
+        </EntityType>
+        <Association Name="FK_Tabla_Medica_Tratamiento">
+          <End Type="BDCAMModel.tabla_medica" Role="tabla_medica" Multiplicity="1" />
+          <End Type="BDCAMModel.Tratamientos" Role="Tratamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabla_medica">
+              <PropertyRef Name="id_cartilla_medica" />
+            </Principal>
+            <Dependent Role="Tratamientos">
+              <PropertyRef Name="id_cartilla_medica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SP_ListaTelefonosTutor_Result">
+          <Property Type="Int32" Name="id_telefono" Nullable="false" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="SP_ListaTratamiento_Result">
+          <Property Type="Int32" Name="id_cartilla_medica" Nullable="false" />
+          <Property Type="String" Name="Tratamiento" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="SP_consulta_foto_alumno_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="Binary" Name="imagen_alumno" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarFotoAlumno_Result">
+          <Property Type="Binary" Name="imagen_alumno" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="catalogo_alergia">
+          <Key>
+            <PropertyRef Name="id_alergias" />
+          </Key>
+          <Property Name="id_alergias" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alergia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tabla_medica" Relationship="BDCAMModel.medica_alergia" FromRole="catalogo_alergia" ToRole="tabla_medica" />
+        </EntityType>
+        <EntityType Name="catalogo_discapacidades">
+          <Key>
+            <PropertyRef Name="id_discapacidades" />
+          </Key>
+          <Property Name="id_discapacidades" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="discapacidades" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tabla_medica" Relationship="BDCAMModel.medica_discapacidad" FromRole="catalogo_discapacidades" ToRole="tabla_medica" />
+        </EntityType>
+        <EntityType Name="catalogo_enfermedades">
+          <Key>
+            <PropertyRef Name="id_enfermedades" />
+          </Key>
+          <Property Name="id_enfermedades" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enfermedades" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tabla_medica" Relationship="BDCAMModel.medica_enfermedades" FromRole="catalogo_enfermedades" ToRole="tabla_medica" />
+        </EntityType>
+        <Association Name="medica_alergia">
+          <End Type="BDCAMModel.catalogo_alergia" Role="catalogo_alergia" Multiplicity="*" />
+          <End Type="BDCAMModel.tabla_medica" Role="tabla_medica" Multiplicity="*" />
+        </Association>
+        <Association Name="medica_discapacidad">
+          <End Type="BDCAMModel.tabla_medica" Role="tabla_medica" Multiplicity="*" />
+          <End Type="BDCAMModel.catalogo_discapacidades" Role="catalogo_discapacidades" Multiplicity="*" />
+        </Association>
+        <Association Name="medica_enfermedades">
+          <End Type="BDCAMModel.tabla_medica" Role="tabla_medica" Multiplicity="*" />
+          <End Type="BDCAMModel.catalogo_enfermedades" Role="catalogo_enfermedades" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="sp_catalogoalergias_Result">
+          <Property Type="Int32" Name="id_alergias" Nullable="false" />
+          <Property Type="String" Name="alergia" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_catalogodiscapacidades_Result">
+          <Property Type="Int32" Name="id_discapacidades" Nullable="false" />
+          <Property Type="String" Name="discapacidades" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_catalogoenfermedades_Result">
+          <Property Type="Int32" Name="id_enfermedades" Nullable="false" />
+          <Property Type="String" Name="enfermedades" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition1_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams1_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Lista_Egresados_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="SP_Lista_Egresado_Filtro_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_paterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido_materno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telefono_contacto" Nullable="false" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BDDCAMModelStoreContainer" CdmEntityContainer="BDDCAMEntities">
+        <EntityContainerMapping StorageEntityContainer="BDCAMModelStoreContainer" CdmEntityContainer="BDCAMEntities">
           <EntitySetMapping Name="alumno">
-            <EntityTypeMapping TypeName="BDDCAMModel.alumno">
+            <EntityTypeMapping TypeName="BDCAMModel.alumno">
               <MappingFragment StoreEntitySet="alumno">
+                <ScalarProperty Name="tipo_ingreso" ColumnName="tipo_ingreso" />
                 <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
                 <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
                 <ScalarProperty Name="ciclo_escolar" ColumnName="ciclo_escolar" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
                 <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
-                <ScalarProperty Name="años_alumno" ColumnName="años_alumno" />
+                <ScalarProperty Name="edad_alumno" ColumnName="edad_alumno" />
                 <ScalarProperty Name="CURP_alumno" ColumnName="CURP_alumno" />
                 <ScalarProperty Name="estado_nacimiento_alumno" ColumnName="estado_nacimiento_alumno" />
                 <ScalarProperty Name="ciudad_nacimiento_alumno" ColumnName="ciudad_nacimiento_alumno" />
@@ -550,19 +1883,30 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BDDCAMModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="programa">
+            <EntityTypeMapping TypeName="BDCAMModel.programa">
+              <MappingFragment StoreEntitySet="programa">
+                <ScalarProperty Name="id_programa" ColumnName="id_programa" />
+                <ScalarProperty Name="nombre_programa" ColumnName="nombre_programa" />
+                <ScalarProperty Name="tiempo" ColumnName="tiempo" />
+                <ScalarProperty Name="secuencia" ColumnName="secuencia" />
+                <ScalarProperty Name="criterios" ColumnName="criterios" />
+                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+                <ScalarProperty Name="modulos" ColumnName="modulos" />
+                <ScalarProperty Name="proyecto" ColumnName="proyecto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recursos">
+            <EntityTypeMapping TypeName="BDCAMModel.recursos">
+              <MappingFragment StoreEntitySet="recursos">
+                <ScalarProperty Name="id_recurso" ColumnName="id_recurso" />
+                <ScalarProperty Name="recurso" ColumnName="recurso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tabla_indicadores_telefono">
-            <EntityTypeMapping TypeName="BDDCAMModel.tabla_indicadores_telefono">
+            <EntityTypeMapping TypeName="BDCAMModel.tabla_indicadores_telefono">
               <MappingFragment StoreEntitySet="tabla_indicadores_telefono">
                 <ScalarProperty Name="id_telefono" ColumnName="id_telefono" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
@@ -570,18 +1914,29 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tabla_medica">
-            <EntityTypeMapping TypeName="BDDCAMModel.tabla_medica">
+            <EntityTypeMapping TypeName="BDCAMModel.tabla_medica">
               <MappingFragment StoreEntitySet="tabla_medica">
-                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
                 <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
                 <ScalarProperty Name="servicio_medico" ColumnName="servicio_medico" />
                 <ScalarProperty Name="grupo_sanguineo" ColumnName="grupo_sanguineo" />
                 <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="color_textura_piel" ColumnName="color_textura_piel" />
+                <ScalarProperty Name="estatura" ColumnName="estatura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="turnos">
+            <EntityTypeMapping TypeName="BDCAMModel.turnos">
+              <MappingFragment StoreEntitySet="turnos">
+                <ScalarProperty Name="id_turno" ColumnName="id_turno" />
+                <ScalarProperty Name="turno" ColumnName="turno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tutor">
-            <EntityTypeMapping TypeName="BDDCAMModel.tutor">
+            <EntityTypeMapping TypeName="BDCAMModel.tutor">
               <MappingFragment StoreEntitySet="tutor">
                 <ScalarProperty Name="id_tutor" ColumnName="id_tutor" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -597,32 +1952,8 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="alergias">
-            <EntityTypeMapping TypeName="BDDCAMModel.alergias">
-              <MappingFragment StoreEntitySet="alergias">
-                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
-                <ScalarProperty Name="alergia" ColumnName="alergia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="discapacidades">
-            <EntityTypeMapping TypeName="BDDCAMModel.discapacidades">
-              <MappingFragment StoreEntitySet="discapacidades">
-                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
-                <ScalarProperty Name="discapacidades1" ColumnName="discapacidades" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="enfermedades">
-            <EntityTypeMapping TypeName="BDDCAMModel.enfermedades">
-              <MappingFragment StoreEntitySet="enfermedades">
-                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
-                <ScalarProperty Name="enfermedad" ColumnName="enfermedad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="telefono_tutores">
-            <EntityTypeMapping TypeName="BDDCAMModel.telefono_tutores">
+            <EntityTypeMapping TypeName="BDCAMModel.telefono_tutores">
               <MappingFragment StoreEntitySet="telefono-tutores">
                 <ScalarProperty Name="id_tutor" ColumnName="id_tutor" />
                 <ScalarProperty Name="id_telefono" ColumnName="id_telefono" />
@@ -630,14 +1961,408 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="tutor_alumno" TypeName="BDDCAMModel.tutor_alumno" StoreEntitySet="tutor-alumno">
+          <AssociationSetMapping Name="alumno_cartilla" TypeName="BDCAMModel.alumno_cartilla" StoreEntitySet="alumno-cartilla">
             <EndProperty Name="alumno">
               <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
             </EndProperty>
+            <EndProperty Name="tabla_medica">
+              <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="alumno_programa" TypeName="BDCAMModel.alumno_programa" StoreEntitySet="alumno-programa">
+            <EndProperty Name="alumno">
+              <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+            </EndProperty>
+            <EndProperty Name="programa">
+              <ScalarProperty Name="id_programa" ColumnName="id_programa" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="programa_turno" TypeName="BDCAMModel.programa_turno" StoreEntitySet="programa-turno">
+            <EndProperty Name="programa">
+              <ScalarProperty Name="id_programa" ColumnName="id_programa" />
+            </EndProperty>
+            <EndProperty Name="turnos">
+              <ScalarProperty Name="id_turno" ColumnName="id_turno" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="recurso_programa" TypeName="BDCAMModel.recurso_programa" StoreEntitySet="recurso-programa">
+            <EndProperty Name="programa">
+              <ScalarProperty Name="id_programa" ColumnName="id_programa" />
+            </EndProperty>
+            <EndProperty Name="recursos">
+              <ScalarProperty Name="id_recurso" ColumnName="id_recurso" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tutor_alumno" TypeName="BDCAMModel.tutor_alumno" StoreEntitySet="tutor-alumno">
             <EndProperty Name="tutor">
               <ScalarProperty Name="id_tutor" ColumnName="id_tutor" />
             </EndProperty>
+            <EndProperty Name="alumno">
+              <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+            </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_altaalergias" FunctionName="BDCAMModel.Store.sp_altaalergias" />
+          <FunctionImportMapping FunctionImportName="SP_AltaAlumno" FunctionName="BDCAMModel.Store.SP_AltaAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_altaalumnocartilla" FunctionName="BDCAMModel.Store.sp_altaalumnocartilla" />
+          <FunctionImportMapping FunctionImportName="sp_altacartilla" FunctionName="BDCAMModel.Store.sp_altacartilla" />
+          <FunctionImportMapping FunctionImportName="sp_altadiscapacidades" FunctionName="BDCAMModel.Store.sp_altadiscapacidades" />
+          <FunctionImportMapping FunctionImportName="sp_altaenfermedades" FunctionName="BDCAMModel.Store.sp_altaenfermedades" />
+          <FunctionImportMapping FunctionImportName="sp_altatutor" FunctionName="BDCAMModel.Store.sp_altatutor" />
+          <FunctionImportMapping FunctionImportName="SP_FichaTecnicaAlumno" FunctionName="BDCAMModel.Store.SP_FichaTecnicaAlumno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_FichaTecnicaAlumno_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="ciudad_nacimiento_alumno" ColumnName="ciudad_nacimiento_alumno" />
+                <ScalarProperty Name="colonia_alumno" ColumnName="colonia_alumno" />
+                <ScalarProperty Name="calle_alumno" ColumnName="calle_alumno" />
+                <ScalarProperty Name="telefono_personal_alumno" ColumnName="telefono_personal_alumno" />
+                <ScalarProperty Name="escuela_procedencia_alumno" ColumnName="escuela_procedencia_alumno" />
+                <ScalarProperty Name="edad_alumno" ColumnName="edad_alumno" />
+                <ScalarProperty Name="estado_nacimiento_alumno" ColumnName="estado_nacimiento_alumno" />
+                <ScalarProperty Name="CURP_alumno" ColumnName="CURP_alumno" />
+                <ScalarProperty Name="atendido_por" ColumnName="atendido_por" />
+                <ScalarProperty Name="ciclo_escolar" ColumnName="ciclo_escolar" />
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="numero_alumno" ColumnName="numero_alumno" />
+                <ScalarProperty Name="tipo_ingreso" ColumnName="tipo_ingreso" />
+                <ScalarProperty Name="documentacion_alumno" ColumnName="documentacion_alumno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_FichaTecnicaAlumnoMedica" FunctionName="BDCAMModel.Store.SP_FichaTecnicaAlumnoMedica">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_FichaTecnicaAlumnoMedica_Result">
+                <ScalarProperty Name="grupo_sanguineo" ColumnName="grupo_sanguineo" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+                <ScalarProperty Name="servicio_medico" ColumnName="servicio_medico" />
+                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_FichaTecnicaAlumnoTutor" FunctionName="BDCAMModel.Store.SP_FichaTecnicaAlumnoTutor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_FichaTecnicaAlumnoTutor_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="calle_tutor" ColumnName="calle_tutor" />
+                <ScalarProperty Name="colonia_tutor" ColumnName="colonia_tutor" />
+                <ScalarProperty Name="numero_tutor" ColumnName="numero_tutor" />
+                <ScalarProperty Name="ocupacion_tutor" ColumnName="ocupacion_tutor" />
+                <ScalarProperty Name="id_tutor" ColumnName="id_tutor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaAlergia" FunctionName="BDCAMModel.Store.SP_ListaAlergia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaAlergia_Result">
+                <ScalarProperty Name="alergia" ColumnName="alergia" />
+                <ScalarProperty Name="id_alergias" ColumnName="id_alergias" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaAlumnos" FunctionName="BDCAMModel.Store.SP_ListaAlumnos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaAlumnos_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaDiscapacidad" FunctionName="BDCAMModel.Store.SP_ListaDiscapacidad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaDiscapacidad_Result">
+                <ScalarProperty Name="discapacidades" ColumnName="discapacidades" />
+                <ScalarProperty Name="id_discapacidades" ColumnName="id_discapacidades" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaEnfermedad" FunctionName="BDCAMModel.Store.SP_ListaEnfermedad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaEnfermedad_Result">
+                <ScalarProperty Name="id_enfermedades" ColumnName="id_enfermedades" />
+                <ScalarProperty Name="enfermedades" ColumnName="enfermedades" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_regresarid" FunctionName="BDCAMModel.Store.sp_regresarid" />
+          <FunctionImportMapping FunctionImportName="sp_regresaridcartilla" FunctionName="BDCAMModel.Store.sp_regresaridcartilla" />
+          <FunctionImportMapping FunctionImportName="sp_regresaridtutor" FunctionName="BDCAMModel.Store.sp_regresaridtutor" />
+          <FunctionImportMapping FunctionImportName="sp_telefonotutores" FunctionName="BDCAMModel.Store.sp_telefonotutores" />
+          <FunctionImportMapping FunctionImportName="sp_tutoralumno" FunctionName="BDCAMModel.Store.sp_tutoralumno" />
+          <EntitySetMapping Name="permisos">
+            <EntityTypeMapping TypeName="BDCAMModel.permisos">
+              <MappingFragment StoreEntitySet="permisos">
+                <ScalarProperty Name="permisos1" ColumnName="permisos" />
+                <ScalarProperty Name="id_permisos" ColumnName="id_permisos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="BDCAMModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subpermisos">
+            <EntityTypeMapping TypeName="BDCAMModel.subpermisos">
+              <MappingFragment StoreEntitySet="subpermisos">
+                <ScalarProperty Name="subpermisos1" ColumnName="subpermisos" />
+                <ScalarProperty Name="id_subpermisos" ColumnName="id_subpermisos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="BDCAMModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_tiene_permiso">
+            <EntityTypeMapping TypeName="BDCAMModel.rol_tiene_permiso">
+              <MappingFragment StoreEntitySet="rol-tiene-permiso">
+                <ScalarProperty Name="id_subpermiso" ColumnName="id_subpermiso" />
+                <ScalarProperty Name="id_permiso" ColumnName="id_permiso" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="usuario_tiene_rol" TypeName="BDCAMModel.usuario_tiene_rol" StoreEntitySet="usuario-tiene-rol">
+            <EndProperty Name="usuario">
+              <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+            </EndProperty>
+            <EndProperty Name="roles">
+              <ScalarProperty Name="id_rol" ColumnName="id_roles" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="foto_alumno">
+            <EntityTypeMapping TypeName="BDCAMModel.foto_alumno">
+              <MappingFragment StoreEntitySet="foto-alumno">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="imagen_alumno" ColumnName="imagen_alumno" />
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_AltaImagenAlumno" FunctionName="BDCAMModel.Store.SP_AltaImagenAlumno" />
+          <FunctionImportMapping FunctionImportName="SP_ListaAlumnos1" FunctionName="BDCAMModel.Store.SP_ListaAlumnos1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaAlumnos1_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaAlumnos2" FunctionName="BDCAMModel.Store.SP_ListaAlumnos2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaAlumnos2_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Tratamientos">
+            <EntityTypeMapping TypeName="BDCAMModel.Tratamientos">
+              <MappingFragment StoreEntitySet="Tratamientos">
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
+                <ScalarProperty Name="id_tratamiento" ColumnName="id_tratamiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaTelefonosTutor" FunctionName="BDCAMModel.Store.SP_ListaTelefonosTutor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaTelefonosTutor_Result">
+                <ScalarProperty Name="id_telefono" ColumnName="id_telefono" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ListaTratamiento" FunctionName="BDCAMModel.Store.SP_ListaTratamiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_ListaTratamiento_Result">
+                <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ModificacionAlumno" FunctionName="BDCAMModel.Store.SP_ModificacionAlumno" />
+          <FunctionImportMapping FunctionImportName="Modificar_discapacidades" FunctionName="BDCAMModel.Store.Modificar_discapacidades" />
+          <FunctionImportMapping FunctionImportName="Modificar_enfermedades" FunctionName="BDCAMModel.Store.Modificar_enfermedades" />
+          <FunctionImportMapping FunctionImportName="Modificar_tratamiento" FunctionName="BDCAMModel.Store.Modificar_tratamiento" />
+          <FunctionImportMapping FunctionImportName="SP_consulta_foto_alumno" FunctionName="BDCAMModel.Store.SP_consulta_foto_alumno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_consulta_foto_alumno_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="imagen_alumno" ColumnName="imagen_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ModificacionCartilla" FunctionName="BDCAMModel.Store.SP_ModificacionCartilla" />
+          <FunctionImportMapping FunctionImportName="SP_ModificacionTutor" FunctionName="BDCAMModel.Store.SP_ModificacionTutor" />
+          <FunctionImportMapping FunctionImportName="SP_MostrarFotoAlumno" FunctionName="BDCAMModel.Store.SP_MostrarFotoAlumno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_MostrarFotoAlumno_Result">
+                <ScalarProperty Name="imagen_alumno" ColumnName="imagen_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Modificar_alergias" FunctionName="BDCAMModel.Store.SP_Modificar_alergias" />
+          <FunctionImportMapping FunctionImportName="SP_AltaTratamientos" FunctionName="BDCAMModel.Store.SP_AltaTratamientos" />
+          <FunctionImportMapping FunctionImportName="SP_ModificarTelefonoTutor" FunctionName="BDCAMModel.Store.SP_ModificarTelefonoTutor" />
+          <EntitySetMapping Name="catalogo_alergia">
+            <EntityTypeMapping TypeName="BDCAMModel.catalogo_alergia">
+              <MappingFragment StoreEntitySet="catalogo_alergia">
+                <ScalarProperty Name="alergia" ColumnName="alergia" />
+                <ScalarProperty Name="id_alergias" ColumnName="id_alergias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catalogo_discapacidades">
+            <EntityTypeMapping TypeName="BDCAMModel.catalogo_discapacidades">
+              <MappingFragment StoreEntitySet="catalogo_discapacidades">
+                <ScalarProperty Name="discapacidades" ColumnName="discapacidades" />
+                <ScalarProperty Name="id_discapacidades" ColumnName="id_discapacidades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catalogo_enfermedades">
+            <EntityTypeMapping TypeName="BDCAMModel.catalogo_enfermedades">
+              <MappingFragment StoreEntitySet="catalogo_enfermedades">
+                <ScalarProperty Name="enfermedades" ColumnName="enfermedades" />
+                <ScalarProperty Name="id_enfermedades" ColumnName="id_enfermedades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="medica_alergia" TypeName="BDCAMModel.medica_alergia" StoreEntitySet="medica-alergia">
+            <EndProperty Name="tabla_medica">
+              <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla" />
+            </EndProperty>
+            <EndProperty Name="catalogo_alergia">
+              <ScalarProperty Name="id_alergias" ColumnName="id_alergia" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="medica_discapacidad" TypeName="BDCAMModel.medica_discapacidad" StoreEntitySet="medica-discapacidad">
+            <EndProperty Name="catalogo_discapacidades">
+              <ScalarProperty Name="id_discapacidades" ColumnName="id_discapacidad" />
+            </EndProperty>
+            <EndProperty Name="tabla_medica">
+              <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartillamedica" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="medica_enfermedades" TypeName="BDCAMModel.medica_enfermedades" StoreEntitySet="medica-enfermedades">
+            <EndProperty Name="catalogo_enfermedades">
+              <ScalarProperty Name="id_enfermedades" ColumnName="id_enfermedades" />
+            </EndProperty>
+            <EndProperty Name="tabla_medica">
+              <ScalarProperty Name="id_cartilla_medica" ColumnName="id_cartilla_medica" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_catalogoalergias" FunctionName="BDCAMModel.Store.sp_catalogoalergias">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.sp_catalogoalergias_Result">
+                <ScalarProperty Name="id_alergias" ColumnName="id_alergias" />
+                <ScalarProperty Name="alergia" ColumnName="alergia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_catalogodiscapacidades" FunctionName="BDCAMModel.Store.sp_catalogodiscapacidades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.sp_catalogodiscapacidades_Result">
+                <ScalarProperty Name="id_discapacidades" ColumnName="id_discapacidades" />
+                <ScalarProperty Name="discapacidades" ColumnName="discapacidades" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_catalogoenfermedades" FunctionName="BDCAMModel.Store.sp_catalogoenfermedades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.sp_catalogoenfermedades_Result">
+                <ScalarProperty Name="id_enfermedades" ColumnName="id_enfermedades" />
+                <ScalarProperty Name="enfermedades" ColumnName="enfermedades" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BDCAMModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram1" FunctionName="BDCAMModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram1" FunctionName="BDCAMModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram1" FunctionName="BDCAMModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition1" FunctionName="BDCAMModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.sp_helpdiagramdefinition1_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams1" FunctionName="BDCAMModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.sp_helpdiagrams1_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram1" FunctionName="BDCAMModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams1" FunctionName="BDCAMModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminar_Alumno" FunctionName="BDCAMModel.Store.SP_Eliminar_Alumno" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminacion_Alergia" FunctionName="BDCAMModel.Store.SP_Eliminacion_Alergia" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminacion_Discapacidad" FunctionName="BDCAMModel.Store.SP_Eliminacion_Discapacidad" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminacion_Enfermedad" FunctionName="BDCAMModel.Store.SP_Eliminacion_Enfermedad" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminacion_Tratamiento" FunctionName="BDCAMModel.Store.SP_Eliminacion_Tratamiento" />
+          <FunctionImportMapping FunctionImportName="SP_Lista_Egresados" FunctionName="BDCAMModel.Store.SP_Lista_Egresados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_Lista_Egresados_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Lista_Egresado_Filtro" FunctionName="BDCAMModel.Store.SP_Lista_Egresado_Filtro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BDCAMModel.SP_Lista_Egresado_Filtro_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -655,7 +2380,7 @@ advertencia 6002: La tabla o vista 'BDDCAM.dbo.tutor-alumno' no tiene definida n
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

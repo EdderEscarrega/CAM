@@ -59,43 +59,116 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Claudia.cs" />
-    <Compile Include="Consultas.cs">
+    <Compile Include="buttonSystem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Contenedor.cs" />
+    <Compile Include="Forms\AltaAlumno\PLAltaAlumno.cs" />
+    <Compile Include="Forms\BajaAlumno\bajaAlumno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Consultas.designer.cs">
-      <DependentUpon>Consultas.cs</DependentUpon>
+    <Compile Include="Forms\BajaAlumno\bajaAlumno.Designer.cs">
+      <DependentUpon>bajaAlumno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Edder.cs" />
-    <Compile Include="Evelyn.cs" />
-    <Compile Include="altaAlumno.cs">
+    <Compile Include="Forms\BajaAlumno\bajaAlumnoFicha.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="altaAlumno.Designer.cs">
+    <Compile Include="Forms\BajaAlumno\bajaAlumnoFicha.Designer.cs">
+      <DependentUpon>bajaAlumnoFicha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BajaAlumno\PLBajaAlumnoFicha.cs" />
+    <Compile Include="Forms\BajaAlumno\PLBajaAlumno.cs" />
+    <Compile Include="Forms\ConsultaAlumno\ConsultaAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConsultaAlumno\ConsultaAlumno.designer.cs">
+      <DependentUpon>ConsultaAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConsultaAlumno\PLConsultaAlumno.cs" />
+    <Compile Include="Forms\ConsultaFormatos\consultaFormatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConsultaFormatos\consultaFormatos.Designer.cs">
+      <DependentUpon>consultaFormatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConsultaFormatos\PLConsultaFormatos.cs" />
+    <Compile Include="Forms\ConsultaFormatos\vistaPreviaFormato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConsultaFormatos\vistaPreviaFormato.Designer.cs">
+      <DependentUpon>vistaPreviaFormato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fichatecnincaAlumno\LineaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\fichatecnincaAlumno\LineaControl.Designer.cs">
+      <DependentUpon>LineaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\modificacionAlumno\PLmodificacionAlumno.cs" />
+    <Compile Include="Forms\AltaAlumno\altaAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AltaAlumno\altaAlumno.Designer.cs">
       <DependentUpon>altaAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fichatecnincaAlumno\PLfichatecnicaAlumno.cs" />
+    <Compile Include="Forms\fichatecnincaAlumno\fichaTecnica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fichatecnincaAlumno\fichaTecnica.Designer.cs">
+      <DependentUpon>fichaTecnica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\modificacionAlumno\modificacionesAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\modificacionAlumno\modificacionesAlumno.Designer.cs">
+      <DependentUpon>modificacionesAlumno.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="altaAlumno.resx">
+    <EmbeddedResource Include="Forms\AltaAlumno\altaAlumno.resx">
       <DependentUpon>altaAlumno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Consultas.resx">
-      <DependentUpon>Consultas.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BajaAlumno\bajaAlumno.resx">
+      <DependentUpon>bajaAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BajaAlumno\bajaAlumnoFicha.resx">
+      <DependentUpon>bajaAlumnoFicha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConsultaAlumno\ConsultaAlumno.resx">
+      <DependentUpon>ConsultaAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConsultaFormatos\consultaFormatos.resx">
+      <DependentUpon>consultaFormatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConsultaFormatos\vistaPreviaFormato.resx">
+      <DependentUpon>vistaPreviaFormato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fichatecnincaAlumno\fichaTecnica.resx">
+      <DependentUpon>fichaTecnica.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fichatecnincaAlumno\LineaControl.resx">
+      <DependentUpon>LineaControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\modificacionAlumno\modificacionesAlumno.resx">
+      <DependentUpon>modificacionesAlumno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -114,6 +187,72 @@
       <Project>{7975ae7a-483c-4ff3-8ff6-27c83930d2ce}</Project>
       <Name>businessLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mas1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregar-usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\quitar-usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boteBasura1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\log-fondo-blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo_CAM_fondo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\searchBox1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox011.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox031.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\panelListadoDatos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fondo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TextBox032.png" />
+    <None Include="Resources\agregar.png" />
+    <None Include="Resources\botonMenos.png" />
+    <None Include="Resources\carpeta_formatos.png" />
+    <Content Include="Resources\TextBox2.png" />
+    <None Include="Resources\TextBox22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
